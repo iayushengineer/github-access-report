@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class GitHubAccessService {
  * Generates the full access report.
  * Uses CompletableFuture to fetch collaborators for ALL repos in parallel.
  */
+@Cacheable(value = "accessReport", key = "#root.method.name")
  public AccessReport generateReport() throws IOException {
  log.info("Starting access report for org: {}", orgName);
  // 1. Get the organization
@@ -72,26 +74,29 @@ public class GitHubAccessService {
  * Called in parallel for all repos.
  */
  private RepositoryAccess fetchRepoAccess(GHRepository repo) {
- try {
- List<RepositoryAccess.UserAccess> collaborators = new ArrayList<>();
- // Get all collaborators with their permission levels
- for (GHUser user : repo.listCollaborators()) {
- GHPermissionType permission =
- repo.getPermission(user);
- collaborators.add(new RepositoryAccess.UserAccess(
- user.getLogin(),
- permission.toString()
- ));
- }
- return new RepositoryAccess(
- repo.getName(),
- repo.getHtmlUrl().toString(),
- repo.isPrivate() ? "private" : "public",
- collaborators
- );
- } catch (IOException e) {
- throw new RuntimeException(
- "Error fetching collaborators for " + repo.getName(), e);
- }
- }
+    try {
+        List<RepositoryAccess.UserAccess> collaborators = new ArrayList<>();
+
+        //  Use .toList() instead of for-each loop
+        List<GHUser> users = repo.listCollaborators().toList();
+
+        for (GHUser user : users) {
+            GHPermissionType permission = repo.getPermission(user);
+            collaborators.add(new RepositoryAccess.UserAccess(
+                user.getLogin(),
+                permission.toString()
+            ));
+        }
+
+        return new RepositoryAccess(
+            repo.getName(),
+            repo.getHtmlUrl().toString(),
+            repo.isPrivate() ? "private" : "public",
+            collaborators
+        );
+    } catch (IOException e) {
+        throw new RuntimeException(
+            "Error fetching collaborators for " + repo.getName(), e);
+    }
+}
 }
