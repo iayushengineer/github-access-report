@@ -1,10 +1,10 @@
-# 🔍 GitHub Organization Access Report Service
+# GitHub Organization Access Report Service
 
 A **Spring Boot REST API** that connects to GitHub and generates a structured report showing **which users have access to which repositories** within a given GitHub Organization.
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Project Structure](#-project-structure)
 - [How It Works — Application Flow](#-how-it-works--application-flow)
@@ -19,7 +19,7 @@ A **Spring Boot REST API** that connects to GitHub and generates a structured re
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 github-access-report/
@@ -61,7 +61,7 @@ github-access-report/
 
 ---
 
-## 🔄 How It Works — Application Flow
+## How It Works — Application Flow
 
 ```
 Client (Browser / Postman / curl)
@@ -108,7 +108,7 @@ GitHubAccessService.java
 
 ---
 
-## ⚙️ Prerequisites
+##  Prerequisites
 
 Make sure these are installed before running:
 
@@ -161,7 +161,7 @@ Replace the placeholder values:
 github.token=ghp_yourActualTokenHere
 github.organization=yourActualOrgName
 ```
-> ⚠️ **Warning:** Do NOT commit the real token to GitHub. Use Option B for submissions.
+>  **Warning:** Do NOT commit the real token to GitHub. Use Option B for submissions.
 
 ---
 

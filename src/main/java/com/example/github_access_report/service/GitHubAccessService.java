@@ -22,9 +22,6 @@ public class GitHubAccessService {
     private final ExecutorService executorService;
     @Value("${github.organization}")
     private String orgName;
-    
-     // Generates the full access report.
-     // Uses CompletableFuture to fetch collaborators for ALL repos in parallel.
      
     @Cacheable(value = "accessReport", key = "#root.method.name")
     public AccessReport generateReport() throws IOException {

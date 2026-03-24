@@ -34,9 +34,9 @@ class GitHubAccessServiceTest {
             Executors.newFixedThreadPool(2));
     }
 
-    // ─────────────────────────────────────────────────────────────
+    
     // TEST 1: Happy path — 1 repo, 1 user, correct mapping
-    // ─────────────────────────────────────────────────────────────
+    
     @Test
     void generateReport_shouldReturnReportWithCorrectOrgName() throws IOException {
         ReflectionTestUtils.setField(service, "orgName", "test-org");
@@ -63,7 +63,7 @@ class GitHubAccessServiceTest {
         when(mockRepo.getPermission(mockUser)).thenReturn(GHPermissionType.ADMIN);
 
         // --- Mock Collaborator list ---
-        // Must mock toList() since service now uses .toList()
+        // Must mock toList() since service uses .toList()
         PagedIterable<GHUser> userIterable = mock(PagedIterable.class);
         when(userIterable.toList()).thenReturn(List.of(mockUser));
         when(mockRepo.listCollaborators()).thenReturn(userIterable);
