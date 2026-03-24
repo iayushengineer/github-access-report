@@ -200,8 +200,8 @@ export GITHUB_ORG=yourOrgName
 3. Click **Generate new token (classic)**
 4. Give it a name: `github-access-report`
 5. Select these scopes:
-   - ✅ `repo` — full repository access
-   - ✅ `read:org` — read organization data
+   - `repo` — full repository access
+   - `read:org` — read organization data
 6. Click **Generate token**
 7. **Copy it immediately** — GitHub shows it only once
 
@@ -220,11 +220,11 @@ export GITHUB_ORG=yourOrgName
 
 ---
 
-## 🚀 How to Run the Project
+## How to Run the Project
 
 ### Step 1 — Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/github-access-report.git
+git clone https://github.com/iayushengineer/github-access-report.git
 cd github-access-report
 ```
 
@@ -401,7 +401,7 @@ mvn test
 
 ### What Each Test Covers:
 
-#### ✅ Test 1 — `generateReport_shouldReturnReportWithCorrectOrgName`
+#### Test 1 — `generateReport_shouldReturnReportWithCorrectOrgName`
 **Purpose:** Verifies the happy path — service correctly returns data when everything works.
 
 **Setup (Mocks):**
@@ -416,7 +416,7 @@ mvn test
 
 ---
 
-#### ✅ Test 2 — `generateReport_shouldHandleEmptyOrg`
+#### Test 2 — `generateReport_shouldHandleEmptyOrg`
 **Purpose:** Verifies the service handles an organization with no repositories gracefully.
 
 **Setup (Mocks):**
@@ -429,7 +429,7 @@ mvn test
 
 ---
 
-#### ✅ Test 3 — `generateReport_shouldThrowWhenOrgNotFound`
+#### Test 3 — `generateReport_shouldThrowWhenOrgNotFound`
 **Purpose:** Verifies that when GitHub throws an error (org not found), the service propagates it correctly — it does not silently swallow it.
 
 **Setup (Mocks):**
