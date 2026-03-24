@@ -33,7 +33,7 @@ public class AccessReportController {
     @SuppressWarnings("null")
     @PostMapping("/access-report/refresh")
     public ResponseEntity<String> refreshReport() {
-    cacheManager.getCache("accessReport").clear();
-    return ResponseEntity.ok("Cache cleared. Next GET will fetch fresh data.");
-}
+        cacheManager.getCache("accessReport").clear();
+        return ResponseEntity.ok("Cache cleared. Next GET will fetch fresh data.");
+    }
 }

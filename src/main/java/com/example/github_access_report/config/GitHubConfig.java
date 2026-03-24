@@ -13,18 +13,18 @@ import java.util.concurrent.Executors;
 public class GitHubConfig {
  @Value("${github.token}")
  private String token;
- @Value("${github.thread-pool-size:10}")
+ @Value("${github.thread-pool-size:20}")
  private int threadPoolSize;
  // Creates authenticated GitHub client
  @Bean
  public GitHub gitHub() throws IOException {
- return new GitHubBuilder()
- .withOAuthToken(token)
- .build();
+            return new GitHubBuilder()
+            .withOAuthToken(token)
+            .build();
  }
  // Thread pool for parallel API calls
  @Bean
  public ExecutorService executorService() {
- return Executors.newFixedThreadPool(threadPoolSize);
+             return Executors.newFixedThreadPool(threadPoolSize);
  }
 }
